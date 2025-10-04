@@ -41,6 +41,10 @@ from time_to_first_response import (
 from time_to_merge import measure_time_to_merge
 from time_to_ready_for_review import get_time_to_ready_for_review
 
+from run_burndown import prepare_burnout_input
+from burndown_chart import generate_burnout
+import json
+
 
 def get_per_issue_metrics(
     issues: Union[List[dict], List[github3.search.IssueSearchResult]],  # type: ignore
@@ -343,6 +347,12 @@ def main():  # pragma: no cover
                 ghe=ghe,
             )
             return
+
+    # burndown chart data
+    issues_dict = prepare_burnout_input(issues)
+    burnout_data = generate_burnout(issues_dict)    
+    with open("burnout.json", "w", encoding="utf-8") as f:
+        json.dump(burnout_data, f, ensure_ascii=False, indent=2)
 
     # Get all the metrics
     issues_with_metrics, num_issues_open, num_issues_closed = get_per_issue_metrics(
