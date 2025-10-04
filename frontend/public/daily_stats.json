@@ -1,0 +1,92 @@
+[
+  {
+    "date": "2023-10-01",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-02",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-03",
+    "items_created": 2,
+    "items_closed": 2,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-04",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-05",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-06",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-07",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-08",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-09",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-10",
+    "items_created": 1,
+    "items_closed": 0,
+    "items_open": 2
+  },
+  {
+    "date": "2023-10-11",
+    "items_created": 2,
+    "items_closed": 2,
+    "items_open": 2
+  },
+  {
+    "date": "2023-10-12",
+    "items_created": 1,
+    "items_closed": 2,
+    "items_open": 1
+  },
+  {
+    "date": "2023-10-13",
+    "items_created": 0,
+    "items_closed": 1,
+    "items_open": 0
+  },
+  {
+    "date": "2023-10-14",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 0
+  },
+  {
+    "date": "2023-10-15",
+    "items_created": 0,
+    "items_closed": 0,
+    "items_open": 0
+  }
+]
