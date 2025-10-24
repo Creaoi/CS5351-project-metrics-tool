@@ -19,7 +19,7 @@ from datetime import datetime, timedelta
 from typing import List, Union
 
 import numpy
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def get_stats_time_to_answer(

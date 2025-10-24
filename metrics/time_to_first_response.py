@@ -23,7 +23,7 @@ from typing import List, Union
 
 import github3
 import numpy
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def measure_time_to_first_response(

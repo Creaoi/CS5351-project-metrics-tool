@@ -35,8 +35,8 @@ Functions:
 from datetime import timedelta
 from typing import List, Union
 
-from classes import IssueWithMetrics
-from config import get_env_vars
+from core.classes import IssueWithMetrics
+from core.config import get_env_vars
 
 
 def get_non_hidden_columns(labels) -> List[str]:

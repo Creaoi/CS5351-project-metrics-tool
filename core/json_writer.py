@@ -23,7 +23,7 @@ import os
 from datetime import timedelta
 from typing import Any, List, Union
 
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def write_to_json(

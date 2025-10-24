@@ -11,7 +11,7 @@ Functions:
 """
 
 import os
-from os.path import dirname, join
+from os.path import dirname, join, abspath
 from typing import List
 
 from dotenv import load_dotenv
@@ -191,8 +191,10 @@ def get_env_vars(test: bool = False) -> EnvVars:
     Returns EnvVars object with all environment variables
     """
     if not test:
-        dotenv_path = join(dirname(__file__), ".env")
+        dotenv_path = join(dirname(abspath(__file__)), '..', '.env')
         load_dotenv(dotenv_path)
+        print("----------------------------")
+        print(dotenv_path)
 
     search_query = os.getenv("SEARCH_QUERY")
     if not search_query:

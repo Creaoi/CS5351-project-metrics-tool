@@ -6,7 +6,7 @@ from typing import List
 import github3
 import numpy
 import pytz
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def get_label_events(

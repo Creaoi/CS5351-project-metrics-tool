@@ -21,25 +21,25 @@ from typing import List, Union
 
 import github3
 import github3.structs
-from auth import auth_to_github, get_github_app_installation_token
-from classes import IssueWithMetrics
-from config import EnvVars, get_env_vars
-from discussions import get_discussions
-from json_writer import write_to_json
-from labels import get_label_metrics, get_stats_time_in_labels
-from markdown_helpers import markdown_too_large_for_issue_body, split_markdown_file
-from markdown_writer import write_to_markdown
-from most_active_mentors import count_comments_per_user, get_mentor_count
-from search import get_owners_and_repositories, search_issues
-from time_in_draft import get_stats_time_in_draft, measure_time_in_draft
-from time_to_answer import get_stats_time_to_answer, measure_time_to_answer
-from time_to_close import get_stats_time_to_close, measure_time_to_close
-from time_to_first_response import (
+from core.auth import auth_to_github, get_github_app_installation_token
+from core.classes import IssueWithMetrics
+from core.config import EnvVars, get_env_vars
+from core.discussions import get_discussions
+from core.json_writer import write_to_json
+from core.labels import get_label_metrics, get_stats_time_in_labels
+from core.markdown_helpers import markdown_too_large_for_issue_body, split_markdown_file
+from core.markdown_writer import write_to_markdown
+from core.most_active_mentors import count_comments_per_user, get_mentor_count
+from core.search import get_owners_and_repositories, search_issues
+from metrics.time_in_draft import get_stats_time_in_draft, measure_time_in_draft
+from metrics.time_to_answer import get_stats_time_to_answer, measure_time_to_answer
+from metrics.time_to_close import get_stats_time_to_close, measure_time_to_close
+from metrics.time_to_first_response import (
     get_stats_time_to_first_response,
     measure_time_to_first_response,
 )
-from time_to_merge import measure_time_to_merge
-from time_to_ready_for_review import get_time_to_ready_for_review
+from metrics.time_to_merge import measure_time_to_merge
+from metrics.time_to_ready_for_review import get_time_to_ready_for_review
 
 
 def get_per_issue_metrics(

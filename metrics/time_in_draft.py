@@ -8,7 +8,7 @@ from typing import List, Union
 import github3
 import numpy
 import pytz
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def measure_time_in_draft(
