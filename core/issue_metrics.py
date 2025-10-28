@@ -42,7 +42,7 @@ from metrics.time_to_merge import measure_time_to_merge
 from metrics.time_to_ready_for_review import get_time_to_ready_for_review
 
 from core.run_burndown import prepare_burnout_input
-from core.burndown_chart import generate_burnout
+from metrics.burndown_chart import generate_burnout
 import json
 import os
 from os.path import join, dirname, abspath
