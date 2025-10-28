@@ -14,7 +14,7 @@ ENV_PATH = ".env"
 def update_env():
     data = request.get_json()
     gh_token = data.get("gh_token")
-    repo_name = data.get("repo_name")  # 只传仓库名
+    repo_name = data.get("repo_name")  # 用户名/仓库名
 
     if not gh_token or not repo_name:
         return jsonify({"message": "缺少必要参数"}), 400
@@ -32,7 +32,7 @@ def update_env():
 
     # 正则匹配 SEARCH_QUERY 行
     search_env_re = re.compile(r'^\s*SEARCH_QUERY\s*=\s*(?P<quote>["\']?)(?P<content>.*?)(?P=quote)?\s*$')
-    repo_re = re.compile(r'(repo:github/)[^\s"]+')  # 匹配 repo:github/<xxx>
+    repo_re = re.compile(r'repo:[^\s"]+')  # 匹配 repo:github/<xxx>
 
     for line in lines:
         # 替换 GH_TOKEN
@@ -44,10 +44,10 @@ def update_env():
         if m:
             orig_content = m.group("content")
             if repo_re.search(orig_content):
-                new_content = repo_re.sub(rf"\1{repo_name}", orig_content, count=1)
+                new_content = repo_re.sub(rf"repo:{repo_name}", orig_content, count=1)
             else:
-                # 如果原来没有 repo:github/...，就在开头加上
-                new_content = f"repo:github/{repo_name} {orig_content}".strip()
+                # 如果原来没有 repo:.../...，就在开头加上
+                new_content = f"repo:{repo_name} {orig_content}".strip()
             line = f'SEARCH_QUERY = "{new_content}"\n'
             found_query = True
         new_lines.append(line)
@@ -57,7 +57,7 @@ def update_env():
         new_lines.append(f'GH_TOKEN = "{gh_token}"\n')
     if not found_query:
         # 如果 SEARCH_QUERY 不存在，写入默认后缀
-        new_lines.append(f'SEARCH_QUERY = "repo:github/{repo_name} is:pr"\n')
+        new_lines.append(f'SEARCH_QUERY = "repo:{repo_name} is:pr"\n')
 
     # 写回 .env
     with open(ENV_PATH, "w", encoding="utf-8") as f:
