@@ -39,7 +39,7 @@ from datetime import datetime
 from typing import Dict, List, Union
 
 import github3
-from classes import IssueWithMetrics
+from core.classes import IssueWithMetrics
 
 
 def count_comments_per_user(
