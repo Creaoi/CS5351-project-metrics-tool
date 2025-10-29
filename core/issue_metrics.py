@@ -47,7 +47,7 @@ import json
 import os
 from os.path import join, dirname, abspath
 
-from core.run_1 import run_1
+from core.run_calculate_contributor_activity import run_calculate_contributor_activity
 
 def get_per_issue_metrics(
     issues: Union[List[dict], List[github3.search.IssueSearchResult]],  # type: ignore
@@ -360,7 +360,7 @@ def main():  # pragma: no cover
         json.dump(burnout_data, f, ensure_ascii=False, indent=2)
 
     # run_1.py
-    run_1(issues, github_connection)
+    run_calculate_contributor_activity(issues, github_connection)
 
     # Get all the metrics
     issues_with_metrics, num_issues_open, num_issues_closed = get_per_issue_metrics(
