@@ -2,6 +2,7 @@ import requests
 import json
 import os
 from os.path import join, dirname, abspath
+from metrics.calculate_response_time import calculate_team_response_time
 
 # get_team_members
 def fetch_all_contributors(owners_and_repositories, token=None):
@@ -38,12 +39,11 @@ def fetch_all_contributors(owners_and_repositories, token=None):
 
 def build_issues_with_comments(issues, github_connection, owners_and_repositories):
     all_issues_data = []
-    repo_info = owners_and_repositories[0]  # 因为只有一个元素，所以直接取第一个
+    repo_info = owners_and_repositories[0]  
     owner = repo_info["owner"]
     repo = repo_info["repository"] 
     for issue in issues:
         issue_number = issue.number
-        # 强制转换为 ISO 8601 字符串
         created_at = issue.created_at.isoformat() if hasattr(issue.created_at, "isoformat") else issue.created_at
 
         issue_info = {
@@ -52,16 +52,14 @@ def build_issues_with_comments(issues, github_connection, owners_and_repositorie
             "comments": []
         }
 
-        # 获取真实 Issue 对象
         try:
             issue_obj = github_connection.issue(owner, repo, issue_number)
         except Exception as e:
             print(f"Failed to fetch issue {owner}/{repo}#{issue_number}: {e}")
             continue
 
-        # 遍历评论
         try:
-            for comment in issue_obj.comments():  # github3.py 生成器，自动分页
+            for comment in issue_obj.comments():  
                 comment_created_at = comment.created_at.isoformat() if hasattr(comment.created_at, "isoformat") else comment.created_at
                 issue_info["comments"].append({
                     "created_at": comment_created_at,
@@ -74,20 +72,21 @@ def build_issues_with_comments(issues, github_connection, owners_and_repositorie
 
     return all_issues_data
 
-def run_2(issues, github_connection, owners_and_repositories, token):
+def run_calculate_team_response_time(issues, github_connection, owners_and_repositories, token):
     team_members = fetch_all_contributors(owners_and_repositories, token)
-    all_issues_data = build_issues_with_comments(issues, github_connection, owners_and_repositories)
+    issues_data = build_issues_with_comments(issues, github_connection, owners_and_repositories)
 
     # 调用计算响应时间的函数
-    # result = 
+    result = calculate_team_response_time(issues_data, team_members)
     
+    '''
     input = {
         "team_members": team_members,
         "issues": all_issues_data
-    }
+    }'''
 
     current_dir = dirname(abspath(__file__))
-    output_file_path = join(current_dir, '..', 'data', '222.json')    
+    output_file_path = join(current_dir, '..', 'data', 'response_time.json')    
     with open(output_file_path, "w", encoding="utf-8") as f:
-        json.dump(input, f, ensure_ascii=False, indent=2)
-        #json.dump(result, f, ensure_ascii=False, indent=2)
+        #json.dump(input, f, ensure_ascii=False, indent=2)
+        json.dump(result, f, ensure_ascii=False, indent=2)
