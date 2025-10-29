@@ -47,6 +47,8 @@ import json
 import os
 from os.path import join, dirname, abspath
 
+from core.run_1 import run_1
+
 def get_per_issue_metrics(
     issues: Union[List[dict], List[github3.search.IssueSearchResult]],  # type: ignore
     env_vars: EnvVars,
@@ -356,6 +358,9 @@ def main():  # pragma: no cover
     output_file_path = join(current_dir, '..', 'data', 'burnout.json')    
     with open(output_file_path, "w", encoding="utf-8") as f:
         json.dump(burnout_data, f, ensure_ascii=False, indent=2)
+
+    # run_1.py
+    run_1(issues, github_connection)
 
     # Get all the metrics
     issues_with_metrics, num_issues_open, num_issues_closed = get_per_issue_metrics(
