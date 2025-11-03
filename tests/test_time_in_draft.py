@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 import github3
 import pytz
-from time_in_draft import get_stats_time_in_draft, measure_time_in_draft
+from metrics.time_in_draft import get_stats_time_in_draft, measure_time_in_draft
 
 
 class TestMeasureTimeInDraft(unittest.TestCase):

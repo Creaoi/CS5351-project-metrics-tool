@@ -16,7 +16,7 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock, call, patch
 
-from issue_metrics import (
+from core.issue_metrics import (
     IssueWithMetrics,
     evaluate_markdown_file_size,
     get_env_vars,

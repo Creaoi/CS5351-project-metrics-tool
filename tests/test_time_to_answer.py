@@ -3,8 +3,8 @@
 import unittest
 from datetime import timedelta
 
-from classes import IssueWithMetrics
-from time_to_answer import get_stats_time_to_answer, measure_time_to_answer
+from core.classes import IssueWithMetrics
+from metrics.time_to_answer import get_stats_time_to_answer, measure_time_to_answer
 
 
 class TestGetAverageTimeToAnswer(unittest.TestCase):
