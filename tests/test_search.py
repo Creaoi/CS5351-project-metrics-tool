@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import MagicMock
 
-from search import get_owners_and_repositories, search_issues
+from core.search import get_owners_and_repositories, search_issues
 
 
 class TestSearchIssues(unittest.TestCase):

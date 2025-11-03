@@ -2,8 +2,8 @@ from types import SimpleNamespace
 import unittest
 import pytest
 from datetime import datetime
-from run_burndown import prepare_burnout_input
-from burndown_chart import _parse_story_points,generate_burnout
+from core.run_burndown import prepare_burnout_input
+from metrics.burndown_chart import _parse_story_points,generate_burnout
 
 class TestPrepareBurnoutInput(unittest.TestCase):
     """

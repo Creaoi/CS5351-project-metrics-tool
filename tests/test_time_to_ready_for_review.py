@@ -13,7 +13,7 @@ import unittest
 from datetime import datetime
 from unittest.mock import MagicMock
 
-from time_to_ready_for_review import get_time_to_ready_for_review
+from metrics.time_to_ready_for_review import get_time_to_ready_for_review
 
 
 class TestGetTimeToReadyForReview(unittest.TestCase):

@@ -15,8 +15,8 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock
 
-from classes import IssueWithMetrics
-from time_to_first_response import (
+from core.classes import IssueWithMetrics
+from metrics.time_to_first_response import (
     get_stats_time_to_first_response,
     measure_time_to_first_response,
 )
