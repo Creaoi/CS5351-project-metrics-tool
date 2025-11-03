@@ -4,8 +4,8 @@ import os
 import unittest
 from unittest.mock import patch
 
-from classes import IssueWithMetrics
-from markdown_writer import get_non_hidden_columns
+from core.classes import IssueWithMetrics
+from core.markdown_writer import get_non_hidden_columns
 
 
 class TestAssigneeFunctionality(unittest.TestCase):
