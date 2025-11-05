@@ -193,8 +193,6 @@ def get_env_vars(test: bool = False) -> EnvVars:
     if not test:
         dotenv_path = join(dirname(abspath(__file__)), '..', '.env')
         load_dotenv(dotenv_path)
-        print("----------------------------")
-        print(dotenv_path)
 
     search_query = os.getenv("SEARCH_QUERY")
     if not search_query:
