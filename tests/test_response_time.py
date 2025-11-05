@@ -4,13 +4,13 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import MagicMock
 from  metrics.calculate_response_time import calculate_team_response_time
-from core.run_calculate_team_response_time import run_calculate_team_response_time,fetch_all_contributors,build_issues_with_comments
+from core.run_calculate_team_response_time import fetch_all_contributors,build_issues_with_comments
 import pytest
 
 TEAM = ["alice", "bob"]
 
 class TestCalculateTeamResponseTime(unittest.TestCase):
-    def test_no_comments():
+    def test_no_comments(self):
         # Issue with no comments should yield zero response time
         issues = [{"id": 1, "created_at": "2025-11-01T08:00:00", "comments": []}]
         res = calculate_team_response_time(issues, TEAM)
@@ -19,7 +19,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["average_response_time_hours"] == 0
         assert res["issues_details"][0]["responded_by_team"] is False
 
-    def test_none_comments():
+    def test_none_comments(self):
         # Issue with no comments should yield zero response time
         issues = [{"id": 1, "created_at": "2025-11-01T08:00:00", "comments": None}]
         res = calculate_team_response_time(issues, TEAM)
@@ -28,7 +28,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["average_response_time_hours"] == 0
         assert res["issues_details"][0]["responded_by_team"] is False
 
-    def test_team_reply_found():
+    def test_team_reply_found(self):
         # Issue with a team member comment
         issues = [{"id": 2, "created_at": "2025-11-01T10:00:00", "comments": [
             {"user": "alice", "created_at": "2025-11-01T11:30:00"}
@@ -38,7 +38,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["average_response_time_hours"] == 1.5
         assert res["issues_details"][0]["response_time_hours"] == 1.5
 
-    def test_multiple_comments_and_sorting():
+    def test_multiple_comments_and_sorting(self):
         # Issue with multiple comments, ensuring sorting and correct response time calculation
         issues = [{"id": 3, "created_at": "2025-11-01T09:00:00", "comments": [
             {"user": "bob", "created_at": "2025-11-01T12:00:00"},
@@ -48,7 +48,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 1
         assert res["issues_details"][0]["response_time_hours"] == 3.0
 
-    def test_no_team_replies():
+    def test_no_team_replies(self):
         # Issue with comments but no team member replies
         issues = [{"id": 4, "created_at": "2025-11-01T09:00:00", "comments": [
             {"user": "external", "created_at": "2025-11-01T09:10:00"}
@@ -57,7 +57,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 0
         assert res["average_response_time_hours"] == 0
 
-    def test_mixed_issues():
+    def test_mixed_issues(self):
         # Mixed issues with and without team replies
         issues = [
             {"id": 5, "created_at": "2025-11-01T08:00:00", "comments": []},
@@ -73,7 +73,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 1
         assert res["average_response_time_hours"] == 1.0
 
-    def test_empty_issues_list():
+    def test_empty_issues_list(self):
         # Empty issues list should yield zero response time
         issues = []
         res = calculate_team_response_time(issues, TEAM)
@@ -81,7 +81,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 0
         assert res["average_response_time_hours"] == 0
 
-    def test_invalid_date_format(): 
+    def test_invalid_date_format(self): 
         # Issue with invalid date format should be handled gracefully
         issues = [{"id": 8, "created_at": "invalid-date", "comments": [
             {"user": "alice", "created_at": "2025-11-01T11:00:00"}
@@ -91,7 +91,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 0
         assert res["average_response_time_hours"] == 0
 
-    def test_reply_before_issue_creation():
+    def test_reply_before_issue_creation(self):
         # Comment created before issue creation should be ignored
         issues = [{"id": 9, "created_at": "2025-11-01T10:00:00", "comments": [
             {"user": "bob", "created_at": "2025-11-01T09:00:00"}
@@ -101,7 +101,7 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 0
         assert res["average_response_time_hours"] == 0
     
-    def test_no_team_members():
+    def test_no_team_members(self):
         # No team members should yield zero response time
         issues = [{"id": 10, "created_at": "2025-11-01T10:00:00", "comments": [
             {"user": "alice", "created_at": "2025-11-01T11:00:00"}
@@ -111,8 +111,18 @@ class TestCalculateTeamResponseTime(unittest.TestCase):
         assert res["responded_issues_count"] == 0
         assert res["average_response_time_hours"] == 0
 
-class TestFetchAllContributors(unittest.TestCase):
-    def test_fetch_all_contributors(monkeypatch):
+    def test_multiple_team_replies(self):
+        # Multiple team member replies, should take the first one
+        issues = [{"id": 11, "created_at": "2025-11-01T08:00:00", "comments": [
+            {"user": "bob", "created_at": "2025-11-01T10:00:00"},
+            {"user": "alice", "created_at": "2025-11-01T09:00:00"}
+        ]}]
+        res = calculate_team_response_time(issues, TEAM)
+        assert res["responded_issues_count"] == 1
+        assert res["average_response_time_hours"] == 1.0  # Alice's reply is first
+
+class TestFetchAllContributors:
+    def test_fetch_all_contributors(self,monkeypatch):
         # normal case with two contributors 
         fake_resp = MagicMock()
         fake_resp.json.return_value = [
@@ -124,8 +134,20 @@ class TestFetchAllContributors(unittest.TestCase):
         repos = [{"owner": "o", "repository": "r"}]
         contributors = fetch_all_contributors(repos)
         assert set(contributors) == {"alice", "bob"}
+
+    def test_fetch_all_contributors_no_login(self,monkeypatch):
+        # Contributor with missing login
+        bad_resp = MagicMock()
+        bad_resp.json.return_value = [
+            {"id": 1},
+            {"login": "charlie"}
+        ]
+        monkeypatch.setattr("requests.get", lambda url, headers=None: bad_resp)
+        repos = [{"owner": "o", "repository": "r"}]
+        contributors = fetch_all_contributors(repos)
+        assert contributors == ["charlie"]
     
-    def test_fetch_all_contributors_api_failure(monkeypatch, capsys):
+    def test_fetch_all_contributors_api_failure(self,monkeypatch, capsys):
         # API returns an error message
         err = MagicMock()
         err.json.return_value = {"message": "Bad credentials"}
@@ -136,7 +158,7 @@ class TestFetchAllContributors(unittest.TestCase):
         assert "Failed to fetch contributors" in captured.out
         assert contributors == []
 
-    def test_fetch_all_contributors_empty_repo(monkeypatch):
+    def test_fetch_all_contributors_empty_repo(self,monkeypatch):
         # Repository with no contributors
         empty_resp = MagicMock()
         empty_resp.json.return_value = []
@@ -146,7 +168,7 @@ class TestFetchAllContributors(unittest.TestCase):
         assert contributors == []   
         
 
-    def test_fetch_all_contributors_pagination(monkeypatch):
+    def test_fetch_all_contributors_pagination(self,monkeypatch):
         # Simulate pagination with more than 100 contributors
         first = MagicMock()
         first.json.return_value = [{"login": f"user{i}"} for i in range(100)]
@@ -164,7 +186,7 @@ class TestFetchAllContributors(unittest.TestCase):
         assert "last" in contributors
         assert len(contributors) == 101
     
-    def test_fetch_all_contributors_non_dict_response(monkeypatch):
+    def test_fetch_all_contributors_non_dict_response(self,monkeypatch):
         # API returns a non-dict, non-list response
         bad_resp = MagicMock()
         bad_resp.json.return_value = "unexpected string"
@@ -173,8 +195,8 @@ class TestFetchAllContributors(unittest.TestCase):
         contributors = fetch_all_contributors(repos)
         assert contributors == []
 
-class TestBuildIssuesWithComments(unittest.TestCase):
-    def test_build_issues_with_comments(monkeypatch):
+class TestBuildIssuesWithComments:
+    def test_build_issues_with_comments(self,monkeypatch):
         # normal case
 
         # construct issue and comments, mock github_connection to return them
@@ -195,7 +217,7 @@ class TestBuildIssuesWithComments(unittest.TestCase):
         assert len(r["comments"]) == 2
         assert r["comments"][0]["user"] == "alice"
 
-    def test_build_issues_with_comments_issue_error(monkeypatch, capsys):
+    def test_build_issues_with_comments_issue_error(self,monkeypatch, capsys):
         # Simulate error when fetching issue
         fake_conn = MagicMock()
         fake_conn.issue.side_effect = Exception("not found")
@@ -207,7 +229,7 @@ class TestBuildIssuesWithComments(unittest.TestCase):
         
         assert results == []
 
-    def test_build_issues_with_comments_comment_error(monkeypatch, capsys):
+    def test_build_issues_with_comments_comment_error(self,monkeypatch, capsys):
         # Simulate error when fetching comments
         def raise_exception():
             raise Exception("comments not found")
@@ -226,7 +248,7 @@ class TestBuildIssuesWithComments(unittest.TestCase):
         assert r["id"] == 14
         assert r["comments"] == []
 
-    def test_build_issues_with_comments_missing_login(monkeypatch):
+    def test_build_issues_with_comments_missing_login(self,monkeypatch):
         # Comment with missing user login
         comment1 = SimpleNamespace(created_at="2025-11-01T10:00:00", user=SimpleNamespace(login=None))
         issue_obj = SimpleNamespace(comments=lambda: [comment1])
@@ -242,3 +264,18 @@ class TestBuildIssuesWithComments(unittest.TestCase):
         r = results[0]
         assert r["id"] == 15
         assert r["comments"][0]["user"] is None
+    
+    def test_build_multiple_issues(self,monkeypatch):
+        # Multiple issues
+        comment1 = SimpleNamespace(created_at="2025-11-01T10:00:00", user=SimpleNamespace(login="alice"))
+        issue_obj = SimpleNamespace(comments=lambda: [comment1])
+        fake_conn = MagicMock()
+        fake_conn.issue.return_value = issue_obj
+        fake_issue1 = SimpleNamespace(number=16, created_at="2025-11-01T09:00:00")
+        fake_issue2 = SimpleNamespace(number=17, created_at="2025-11-01T10:00:00")
+        owners_and_repositories = [{"owner": "o", "repository": "r"}]
+        results = build_issues_with_comments([fake_issue1, fake_issue2], fake_conn, owners_and_repositories)
+        assert len(results) == 2
+        assert results[0]["id"] == 16
+        assert results[1]["id"] == 17
+        
