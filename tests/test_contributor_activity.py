@@ -39,7 +39,7 @@ class TestContributorActivity(unittest.TestCase):
         result = calculate_contributor_activity(issues)
         self.assertEqual(result, expected_leaderboard)
 
-    def test_no_issues():
+    def test_no_issues(self):
         assert calculate_contributor_activity([]) == []
 
     def test_missing_fields(self):
@@ -81,7 +81,7 @@ def make_issue_wrapper(repo_full="https://api.github.com/repos/owner/repo", numb
     return SimpleNamespace(repository_url=repo_full, number=number, state=state)  
 
 class TestCollectIssueData(unittest.TestCase):
-    def test_collect_issue_data_basic():  
+    def test_collect_issue_data_basic(self):  
         # test normal case
         issue_wrapper = make_issue_wrapper(number=5, state="closed")  
         issue_obj = make_issue_obj(comments=[make_comment("alice"), make_comment(None)], closed_by_login="bob")  
@@ -97,7 +97,7 @@ class TestCollectIssueData(unittest.TestCase):
         assert item["closed_by"] == "bob"  
         assert item["comments"] == [{"user": "alice"}]  # None commenter filtered out  
 
-    def test_collect_issue_data_handles_missing_login():  
+    def test_collect_issue_data_handles_missing_login(self):  
         # test case where comment.user has no login attribute
         issue_wrapper = make_issue_wrapper(number=6, state="open")  
         # comment.user has no login attribute  
@@ -110,7 +110,7 @@ class TestCollectIssueData(unittest.TestCase):
         res = collect_issue_data([issue_wrapper], fake_conn)  
         assert res[0]["comments"] == []  # missing login filtered  
 
-    def test_collect_issue_data_comments_raises_and_function_behaviour():  
+    def test_collect_issue_data_comments_raises_and_function_behaviour(self):  
         # test case where comments() raises an exception
         issue_wrapper = make_issue_wrapper(number=7, state="open")  
         issue_obj = make_issue_obj(comments=None, comments_raise=Exception("comments not found"), closed_by_login=None)  
@@ -121,7 +121,7 @@ class TestCollectIssueData(unittest.TestCase):
         with pytest.raises(Exception, match="comments not found"):  
             collect_issue_data([issue_wrapper], fake_conn)  
 
-    def test_collect_issue_data_multiple_issues():  
+    def test_collect_issue_data_multiple_issues(self):  
         # test multiple issues
         issue_wrapper1 = make_issue_wrapper(number=9, state="closed")  
         issue_obj1 = make_issue_obj(comments=[make_comment("alice")], closed_by_login="bob")  
@@ -143,13 +143,13 @@ class TestCollectIssueData(unittest.TestCase):
         assert res[1]["closed_by"] is None  
         assert res[1]["comments"] == [{"user": "charlie"}, {"user": "dave"}]
 
-    def test_collect_issue_data_no_issues():  
+    def test_collect_issue_data_no_issues(self):  
         # test empty issues list
         fake_conn = MagicMock()  
         res = collect_issue_data([], fake_conn)  
         assert res == []
     
-    def test_collect_issue_data_none_in_comments():  
+    def test_collect_issue_data_none_in_comments(self):  
         # test case where comments list contains None
         issue_wrapper = make_issue_wrapper(number=11, state="open")  
         issue_obj = make_issue_obj(comments=[make_comment("eve"), None, make_comment("frank")], closed_by_login=None)  
@@ -160,7 +160,7 @@ class TestCollectIssueData(unittest.TestCase):
         res = collect_issue_data([issue_wrapper], fake_conn)  
         assert res[0]["comments"] == [{"user": "eve"}, {"user": "frank"}]  # None comment filtered out
 
-    def test_collect_issue_data_not_list_comments():  
+    def test_collect_issue_data_not_list_comments(self):  
         # test case where comments() does not return a list
         issue_wrapper = make_issue_wrapper(number=12, state="open")  
 
@@ -175,7 +175,7 @@ class TestCollectIssueData(unittest.TestCase):
         with pytest.raises(TypeError):  
             collect_issue_data([issue_wrapper], fake_conn)
 
-    def test_collect_issue_data_closed_by_none_and_no_comments():  
+    def test_collect_issue_data_closed_by_none_and_no_comments(self):  
         # test case where closed_by is None and no comments
         issue_wrapper = make_issue_wrapper(number=8, state="closed")  
         issue_obj = make_issue_obj(comments=[], closed_by_login=None)  
@@ -187,7 +187,7 @@ class TestCollectIssueData(unittest.TestCase):
         assert res[0]["closed_by"] is None  
         assert res[0]["comments"] == []  
 
-    def test_collect_issue_data_closed_by_no_login():  
+    def test_collect_issue_data_closed_by_no_login(self):  
         # test case where closed_by has no login attribute
         issue_wrapper = make_issue_wrapper(number=13, state="closed")  
         closed_by_no_login = SimpleNamespace()  # no login attribute  
