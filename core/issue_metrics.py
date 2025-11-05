@@ -48,6 +48,8 @@ import os
 from os.path import join, dirname, abspath
 
 from core.run_calculate_contributor_activity import run_calculate_contributor_activity
+from core.run_calculate_team_response_time import run_calculate_team_response_time
+from core.pr_efficiency import run_3
 
 def get_per_issue_metrics(
     issues: Union[List[dict], List[github3.search.IssueSearchResult]],  # type: ignore
@@ -361,7 +363,9 @@ def main():  # pragma: no cover
 
     # run_1.py
     run_calculate_contributor_activity(issues, github_connection)
-
+    run_calculate_team_response_time(issues, github_connection, owners_and_repositories, token)
+    run_3(github_connection, owners_and_repositories)
+    
     # Get all the metrics
     issues_with_metrics, num_issues_open, num_issues_closed = get_per_issue_metrics(
         issues,
