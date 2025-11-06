@@ -1,0 +1,49 @@
+{
+  "overall_statistics": {
+    "average_efficiency_score": 31202.95,
+    "average_merge_time_hours": 24.59,
+    "average_review_time_hours": 24.59
+  },
+  "pr_details": [
+    {
+      "pr_id": 12,
+      "created_at": "2025-11-05T09:05:19+00:00",
+      "merged_at": "2025-11-05T09:05:31+00:00",
+      "state": "closed",
+      "merge_time_hours": 0.0,
+      "average_review_time_hours": 0.0,
+      "total_changes": 373,
+      "efficiency_score": 111900.0
+    },
+    {
+      "pr_id": 10,
+      "created_at": "2025-11-05T08:58:10+00:00",
+      "merged_at": "2025-11-05T09:01:10+00:00",
+      "state": "closed",
+      "merge_time_hours": 0.05,
+      "average_review_time_hours": 0.05,
+      "total_changes": 358,
+      "efficiency_score": 7160.0
+    },
+    {
+      "pr_id": 9,
+      "created_at": "2025-11-05T08:57:48+00:00",
+      "merged_at": "2025-11-05T09:02:08+00:00",
+      "state": "closed",
+      "merge_time_hours": 0.07,
+      "average_review_time_hours": 0.07,
+      "total_changes": 415,
+      "efficiency_score": 5746.15
+    },
+    {
+      "pr_id": 8,
+      "created_at": "2025-10-24T07:49:05+00:00",
+      "merged_at": "2025-10-28T10:03:33+00:00",
+      "state": "closed",
+      "merge_time_hours": 98.24,
+      "average_review_time_hours": 98.24,
+      "total_changes": 554,
+      "efficiency_score": 5.64
+    }
+  ]
+}

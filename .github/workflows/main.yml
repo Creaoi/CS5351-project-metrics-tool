@@ -1,0 +1,38 @@
+name: Yearly issue metrics
+
+on:
+  workflow_dispatch:  # 允许手动触发工作流
+  schedule:
+    - cron: "3 2 1 * *"   # 每年1月1号 02:03 UTC 自动运行（可根据需要调整日期）
+
+permissions:
+  contents: read   # 只读仓库内容
+
+jobs:
+  build:
+    name: issue metrics
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write          # 允许创建 Issue
+      pull-requests: read    # 允许读取 PR 信息
+
+    steps:
+      - name: 计算一年前的日期
+        shell: bash
+        run: |
+          one_year_ago=$(date -d "1 year ago" +%Y-%m-%d)
+          echo "one_year_ago=$one_year_ago" >> "$GITHUB_ENV"
+
+      - name: 运行 issue-metrics 工具
+        uses: github/issue-metrics@v3
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 自动生成的令牌
+          # 查询过去一年的所有 Issues
+          SEARCH_QUERY: 'repo:wenzaee/test-2 is:issue created:>=${{ env.one_year_ago }}'
+
+      - name: 创建包含报告的 Issue
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: Yearly issue metrics report
+          token: ${{ secrets.GITHUB_TOKEN }}      # 使用 GitHub 自动生成的令牌
+          content-filepath: ./issue_metrics.md   # issue-metrics 生成的报告文件
