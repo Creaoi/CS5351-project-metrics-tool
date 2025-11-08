@@ -7,9 +7,9 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import patch
 
-from classes import IssueWithMetrics
-from json_writer import write_to_json
-from markdown_writer import write_to_markdown
+from core.classes import IssueWithMetrics
+from core.json_writer import write_to_json
+from core.markdown_writer import write_to_markdown
 
 
 class TestAssigneeIntegration(unittest.TestCase):

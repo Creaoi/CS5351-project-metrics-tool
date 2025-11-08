@@ -4,8 +4,8 @@ import json
 import unittest
 from datetime import timedelta
 
-from classes import IssueWithMetrics
-from json_writer import write_to_json
+from core.classes import IssueWithMetrics
+from core.json_writer import write_to_json
 
 
 class TestWriteToJson(unittest.TestCase):
