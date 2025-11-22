@@ -1,0 +1,102 @@
+{
+  "actual": [
+    {
+      "date": "2025-09-13",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-14",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-15",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-16",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-17",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-18",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-19",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-20",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-21",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-22",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-23",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-24",
+      "remaining_points": 7.0
+    }
+  ],
+  "ideal": [
+    {
+      "date": "2025-09-13",
+      "remaining_points": 7.0
+    },
+    {
+      "date": "2025-09-14",
+      "remaining_points": 6.36
+    },
+    {
+      "date": "2025-09-15",
+      "remaining_points": 5.73
+    },
+    {
+      "date": "2025-09-16",
+      "remaining_points": 5.09
+    },
+    {
+      "date": "2025-09-17",
+      "remaining_points": 4.45
+    },
+    {
+      "date": "2025-09-18",
+      "remaining_points": 3.82
+    },
+    {
+      "date": "2025-09-19",
+      "remaining_points": 3.18
+    },
+    {
+      "date": "2025-09-20",
+      "remaining_points": 2.55
+    },
+    {
+      "date": "2025-09-21",
+      "remaining_points": 1.91
+    },
+    {
+      "date": "2025-09-22",
+      "remaining_points": 1.27
+    },
+    {
+      "date": "2025-09-23",
+      "remaining_points": 0.64
+    },
+    {
+      "date": "2025-09-24",
+      "remaining_points": 0.0
+    }
+  ]
+}

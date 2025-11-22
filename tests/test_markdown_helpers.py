@@ -3,7 +3,7 @@
 import os
 import unittest
 
-from core.markdown_helpers import markdown_too_large_for_issue_body, split_markdown_file
+from markdown_helpers import markdown_too_large_for_issue_body, split_markdown_file
 
 
 class TestMarkdownHelpers(unittest.TestCase):

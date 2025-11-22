@@ -8,7 +8,7 @@ Classes:
 import unittest
 from unittest.mock import patch
 
-from core.discussions import get_discussions
+from discussions import get_discussions
 
 
 class TestGetDiscussions(unittest.TestCase):

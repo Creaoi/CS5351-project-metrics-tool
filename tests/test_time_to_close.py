@@ -14,8 +14,8 @@ import unittest
 from datetime import timedelta
 from unittest.mock import MagicMock
 
-from core.classes import IssueWithMetrics
-from metrics.time_to_close import get_stats_time_to_close, measure_time_to_close
+from classes import IssueWithMetrics
+from time_to_close import get_stats_time_to_close, measure_time_to_close
 
 
 class TestGetAverageTimeToClose(unittest.TestCase):

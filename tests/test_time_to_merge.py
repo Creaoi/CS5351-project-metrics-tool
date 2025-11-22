@@ -13,7 +13,7 @@ import unittest
 from datetime import datetime, timedelta
 from unittest.mock import MagicMock
 
-from metrics.time_to_merge import measure_time_to_merge
+from time_to_merge import measure_time_to_merge
 
 
 class TestMeasureTimeToMerge(unittest.TestCase):

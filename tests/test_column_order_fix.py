@@ -12,8 +12,8 @@ import unittest
 from datetime import timedelta
 from unittest.mock import patch
 
-from core.classes import IssueWithMetrics
-from core.markdown_writer import get_non_hidden_columns, write_to_markdown
+from classes import IssueWithMetrics
+from markdown_writer import get_non_hidden_columns, write_to_markdown
 
 
 @patch.dict(

@@ -4,7 +4,7 @@ import os
 import unittest
 from unittest.mock import patch
 
-from core.config import get_bool_env_var
+from config import get_bool_env_var
 
 
 class TestEnv(unittest.TestCase):

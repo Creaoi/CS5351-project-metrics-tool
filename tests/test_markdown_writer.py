@@ -12,8 +12,8 @@ import unittest
 from datetime import timedelta
 from unittest.mock import call, mock_open, patch
 
-from core.classes import IssueWithMetrics
-from core.markdown_writer import write_to_markdown
+from classes import IssueWithMetrics
+from markdown_writer import write_to_markdown
 
 
 @patch.dict(

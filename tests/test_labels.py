@@ -6,8 +6,8 @@ from unittest.mock import MagicMock
 
 import github3
 import pytz
-from core.classes import IssueWithMetrics
-from core.labels import get_label_events, get_label_metrics, get_stats_time_in_labels
+from classes import IssueWithMetrics
+from labels import get_label_events, get_label_metrics, get_stats_time_in_labels
 
 
 class TestLabels(unittest.TestCase):

@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, patch
 
 import github3
 import requests
-from core.auth import auth_to_github, get_github_app_installation_token
+from auth import auth_to_github, get_github_app_installation_token
 
 
 class TestAuthToGithub(unittest.TestCase):

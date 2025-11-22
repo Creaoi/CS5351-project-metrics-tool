@@ -10,7 +10,7 @@ import os
 import unittest
 from unittest.mock import patch
 
-from core.config import EnvVars, get_env_vars, get_int_env_var
+from config import EnvVars, get_env_vars, get_int_env_var
 
 SEARCH_QUERY = "is:issue is:open repo:user/repo"
 TOKEN = "test_token"
